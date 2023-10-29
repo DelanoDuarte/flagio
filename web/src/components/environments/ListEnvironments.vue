@@ -3,12 +3,14 @@
         <thead>
             <tr>
                 <th id="name" class="text-left">Name</th>
+                <th id="name" class="text-left">Created on</th>
                 <th id="actions" class="text-center"></th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="{ id, name } in props.environments" :key="id">
+            <tr v-for="{ id, name, created_on } in props.environments" :key="id">
                 <td>{{ name }}</td>
+                <td>{{ created_on }}</td>
                 <td>
                     <v-menu location="end" transition="scale-transition">
                         <template v-slot:activator="{ props }">
