@@ -1,0 +1,30 @@
+version: '3'
+services:
+  flagio:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_DEBUG=False
+      - FLASK_ENV='production'
+    volumes:
+      - ./flagio:/app
+    networks:
+      - flagio-network
+
+  flagio-web:
+    build: ./web
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./flagio-web:/app
+    depends_on:
+      - flagio
+    networks:
+      - flagio-network
+
+networks:
+  flagio-network:
+    name: flagio-network
+    driver: bridge
