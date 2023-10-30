@@ -13,6 +13,15 @@ export const deleteFlag = (id) => request.delete(`/flags/${id}`);
 // Environments Requests
 export const fetchAllEnvironments = () => request.get("/environments");
 export const createEnvironment = (environment) =>
-  request.post("/environments", JSON.stringify(environment), {
+  request.post("/environments/", JSON.stringify(environment), {
+    headers: { "Content-Type": "application/json" },
+  });
+export const environmentKeyGenerator = () =>
+  request.post("/environments/key/generator", {
+    headers: { "Content-Type": "application/json" },
+  });
+
+export const environmentKeyGeneratorById = (id) =>
+  request.put(`/environments/${id}/key/generate`, {
     headers: { "Content-Type": "application/json" },
   });

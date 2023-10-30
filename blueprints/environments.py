@@ -1,13 +1,16 @@
 from flask import Blueprint, jsonify, request, Response
 from models import Environment, Flag, db
+from managers.environments import EnvironmentManager 
+from uuid import uuid4
 
 environments = Blueprint('environments', __name__)
+manager = EnvironmentManager()
 
 @environments.route("", methods=["GET", "POST"])
 def index():
     if request.method == 'POST':
         payload = request.get_json()
-        environment = Environment(payload['name']) 
+        environment = Environment(payload['name'], payload.get('key')) 
 
         db.session.add(environment)
         db.session.commit()
@@ -27,6 +30,16 @@ def delete(id: str):
         return Response(status=204)
     
     return jsonify(environment.toJson())
+
+@environments.route("/<id>/key/generate", methods=["PUT"])
+def environment_key_generator(id: str):
+    environment = manager.update_key(id)
+    return jsonify(environment.toJson())
+
+    
+@environments.route("/key/generator", methods=["POST"])
+def generate_key():
+    return jsonify(uuid4())
 
 @environments.route("/<id>/flags", methods=["PUT"])
 def add_flag(id: str):

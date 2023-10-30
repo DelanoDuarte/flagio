@@ -8,7 +8,7 @@ class FlagManager:
             envs = list(map(lambda env: Environment.query.get(env), environments))
             for e in envs: flag.environments.append(e)
         
-        if flag.expiration_date:
+        if flag.has_expiration():
             flag.active = True
 
         db.session.add(flag)

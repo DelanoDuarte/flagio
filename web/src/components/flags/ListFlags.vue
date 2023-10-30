@@ -5,7 +5,7 @@
         <tr>
           <th id="name" class="text-left">Name</th>
           <th id="created" class="text-left">Created On</th>
-          <th id="created" class="text-left">Expiration Date</th>
+          <th id="created" class="text-left">Expiration</th>
           <th id="envs" class="text-left">Environments</th>
           <th id="active" class="text-left">Active</th>
           <th id="actions" class="text-left">
@@ -14,16 +14,27 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="{ id, name, active, created_on, expiration_date, environments } in props.flags" :key="id"
-          v-memo="[active]">
+        <tr
+          v-for="{
+            id,
+            name,
+            active,
+            created_on,
+            expiration_date,
+            environments,
+          } in props.flags"
+          :key="id"
+          v-memo="[active]"
+        >
           <td>{{ name }}</td>
           <td>{{ created_on }}</td>
           <td>
             <div v-if="expiration_date">
-              <v-tooltip activator="parent" location="bottom">{{ moment(expiration_date).format("MMM Do YY")
+              <v-tooltip activator="parent" location="bottom">{{
+                moment(expiration_date).format("MMM Do YY")
               }}</v-tooltip>
               <v-icon icon="mdi-clock-outline" color="error"></v-icon>
-              {{ moment(expiration_date).endOf('day').fromNow() }}
+              {{ moment(expiration_date).endOf("day").fromNow() }}
             </div>
           </td>
           <td>
@@ -33,8 +44,13 @@
           </td>
           <td class="text-left">
             <div>
-              <v-switch label="Active" color="green" :model-value="active" inset
-                @update:model-value="(newValue) => onStatusChange(id, newValue)">
+              <v-switch
+                label="Active"
+                color="green"
+                :model-value="active"
+                inset
+                @update:model-value="(newValue) => onStatusChange(id, newValue)"
+              >
               </v-switch>
             </div>
           </td>
@@ -71,9 +87,9 @@
 </template>
 
 <script setup>
-import { onMounted, ref, defineProps } from "vue";
+import { onMounted, ref } from "vue";
 import { useToast } from "vue-toastification";
-import moment from 'moment'
+import moment from "moment";
 
 import request from "@/utils/request";
 
@@ -82,7 +98,7 @@ const props = defineProps(["flags"]);
 
 const toast = useToast();
 
-onMounted(() => { });
+onMounted(() => {});
 
 function onStatusChange(flag_id, value) {
   if (value) {
@@ -101,7 +117,7 @@ const activate = (id) => {
     },
   })
     .then((flag) => {
-      toast.success(`Flag ${flag.name} Activated`)
+      toast.success(`Flag ${flag.name} Activated`);
     })
     .catch((err) => {
       console.log(err);
@@ -120,7 +136,7 @@ const deactivate = (id) => {
     },
   })
     .then((flag) => {
-      toast.warning(`Flag ${flag.name} Deactivated`)
+      toast.warning(`Flag ${flag.name} Deactivated`);
     })
     .catch((err) => {
       console.log(err);

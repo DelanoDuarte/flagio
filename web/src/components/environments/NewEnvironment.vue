@@ -1,5 +1,5 @@
 <template>
-    <v-dialog width="500" v-model="dialog">
+    <v-dialog width="700" v-model="dialog">
         <template v-slot:activator="{ props }">
             <v-btn v-bind="props" color="primary" text="New Environment"> </v-btn>
         </template>
@@ -11,6 +11,20 @@
                         <v-row>
                             <v-col cols="12">
                                 <v-text-field v-model="environment.name" label="Name *" required></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col cols="12">
+                                <v-text-field v-model="environment.key" variant="filled" label="Key" type="text">
+                                    <template v-slot:prepend>
+                                        <v-tooltip location="bottom">
+                                            <template v-slot:activator="{ props }">
+                                                <v-icon v-bind="props" icon="mdi-shield-key" @click="generateKey"></v-icon>
+                                            </template>
+                                            Generate Key
+                                        </v-tooltip>
+                                    </template>
+                                </v-text-field>
                             </v-col>
                         </v-row>
                     </v-container>
@@ -29,15 +43,24 @@
 </template>
 
 <script setup>
-import { createEnvironment } from '@/services/api';
-import { ref } from "vue";
+import { createEnvironment, environmentKeyGenerator } from '@/services/api';
+import { ref, watchEffect } from "vue";
 
 const emit = defineEmits(['onNewEnvironment'])
 
 const dialog = ref(false);
 const environment = ref({
     name: "",
+    key: undefined
 });
+const loadingKeyGen = ref(false)
+
+const generateKey = async () => {
+    loadingKeyGen.value = true
+    environmentKeyGenerator()
+        .then(key => environment.value.key = key)
+        .finally(() => loadingKeyGen.value = false)
+}
 
 const newEnv = () => {
     createEnvironment(environment.value)

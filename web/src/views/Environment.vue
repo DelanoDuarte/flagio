@@ -27,16 +27,17 @@
             <v-card-text class="text-right">
                 <NewEnvironment @onNewEnvironment="fetchEnvironments" />
             </v-card-text>
-            <ListEnvironments :environments="environments" />
+            <ListEnvironments :environments="environments" @onGenerateKey="generateKey($event)" />
         </v-card>
     </Transition>
 </template>
 
 <script setup>
 import { watchEffect, ref } from "vue";
+import { useToast } from "vue-toastification";
 import ListEnvironments from "@/components/environments/ListEnvironments.vue";
 import NewEnvironment from "@/components/environments/NewEnvironment.vue";
-import { fetchAllEnvironments } from "@/services/api";
+import { fetchAllEnvironments, environmentKeyGeneratorById } from "@/services/api";
 
 const environments = ref([]);
 const cards = ref([
@@ -47,10 +48,19 @@ const cards = ref([
         color: "success"
     },
 ]);
+const toast = useToast()
 
 const fetchEnvironments = async () => {
     environments.value = await fetchAllEnvironments();
 };
+const generateKey = async (id) => {
+    environmentKeyGeneratorById(id)
+        .then((env) => {
+            fetchEnvironments();
+            toast.success(`Key generated for environment ${env.name}`);
+        })
+        .catch((error) => console.log(error))
+}
 
 watchEffect(async () => {
     fetchEnvironments();

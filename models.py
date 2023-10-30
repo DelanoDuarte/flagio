@@ -29,6 +29,9 @@ class Flag(db.Model):
         self.description = description
         self.expiration_date = expiration_date
 
+    def has_expiration(self) -> bool:
+        return self.expiration_date is not None
+
     def toJson(self, with_environments: bool = True):
         flag = {
             "id": self.id,
@@ -49,18 +52,22 @@ class Environment(db.Model):
     created_on: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.utcnow())
     name: Mapped[str] = mapped_column(String, unique=True, nullable=False)
 
+    key = db.Column(db.Text(length=36))
+
     # relationships
     flags: Mapped[List[Flag]] = relationship(
         secondary='environment_flags', back_populates="environments"
     )
 
-    def __init__(self, name) -> None:
+    def __init__(self, name, key = None) -> None:
         self.name = name
+        self.key = key
 
     def toJson(self):
         return {
             "id": self.id,
             "name": self.name,
+            "key": self.key,
             "created_on": self.created_on
         }
 
