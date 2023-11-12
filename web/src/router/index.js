@@ -1,10 +1,32 @@
 // Composables
 import { createRouter, createWebHistory } from "vue-router";
+import { useAuthStore } from "@/store/auth.js";
+
+const isAuthenticatedGuard = (to, from, next) => {
+  const auth = useAuthStore();
+  if (to.name !== "Login" && !auth.isAuthenticated()) {
+    next({ name: "Login" });
+  } else {
+    next();
+  }
+};
 
 const routes = [
   {
+    path: "/login",
+    children: [
+      {
+        path: "",
+        name: "Login",
+        component: () =>
+          import(/* webpackChunkName: "home" */ "@/views/Login.vue"),
+      },
+    ],
+  },
+  {
     path: "/",
     component: () => import("@/layouts/default/Default.vue"),
+    beforeEnter: [isAuthenticatedGuard],
     children: [
       {
         path: "",
@@ -19,6 +41,7 @@ const routes = [
   },
   {
     path: "/flags",
+    beforeEnter: [isAuthenticatedGuard],
     component: () => import("@/layouts/default/Default.vue"),
     children: [
       {
@@ -34,6 +57,7 @@ const routes = [
   },
   {
     path: "/environments",
+    beforeEnter: [isAuthenticatedGuard],
     component: () => import("@/layouts/default/Default.vue"),
     children: [
       {
@@ -44,6 +68,19 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () =>
           import(/* webpackChunkName: "home" */ "@/views/Environment.vue"),
+      },
+    ],
+  },
+  {
+    path: "/administration",
+    beforeEnter: [isAuthenticatedGuard],
+    component: () => import("@/layouts/default/Default.vue"),
+    children: [
+      {
+        path: "",
+        name: "Administration",
+        component: () =>
+          import(/* webpackChunkName: "home" */ "@/views/Administration.vue"),
       },
     ],
   },

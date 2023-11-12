@@ -1,5 +1,5 @@
 Arguments: 
-  /opt/homebrew/Cellar/node/20.5.0/bin/node /opt/homebrew/Cellar/yarn/1.22.19/libexec/bin/yarn.js add vue-toastification@next
+  /opt/homebrew/Cellar/node/20.5.0/bin/node /opt/homebrew/Cellar/yarn/1.22.19/libexec/bin/yarn.js add pinia
 
 PATH: 
   /Users/delanoduarte/Documents/Projects/flask_vue_101/bin:/Users/delanoduarte/Documents/Projects/flask_vue_101/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Users/delanoduarte/Documents/Projects/flask_vue_101/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/delanoduarte/.orbstack/bin:/Users/delanoduarte/.orbstack/bin
@@ -14,7 +14,7 @@ Platform:
   darwin arm64
 
 Trace: 
-  Error: ENOENT: no such file or directory, copyfile '/Users/delanoduarte/Library/Caches/Yarn/v6/npm-glob-parent-6.0.2-6d237d99083950c79290f24c7642a3de9a28f9e3-integrity/node_modules/glob-parent/README.md' -> '/Users/delanoduarte/Documents/Projects/flask_vue_101/app/web/node_modules/eslint/node_modules/glob-parent/README.md'
+  Error: ENOENT: no such file or directory, copyfile '/Users/delanoduarte/Library/Caches/Yarn/v6/npm-glob-parent-6.0.2-6d237d99083950c79290f24c7642a3de9a28f9e3-integrity/node_modules/glob-parent/LICENSE' -> '/Users/delanoduarte/Documents/Projects/flask_vue_101/app/web/node_modules/eslint/node_modules/glob-parent/LICENSE'
 
 npm manifest: 
   {
@@ -31,9 +31,11 @@ npm manifest:
       "@mdi/font": "7.0.96",
       "axios": "^1.5.1",
       "core-js": "^3.29.0",
+      "moment": "^2.29.4",
       "roboto-fontface": "*",
       "vue": "^3.2.0",
       "vue-router": "^4.0.0",
+      "vue-toastification": "^2.0.0-rc.5",
       "vuetify": "^3.0.0"
     },
     "devDependencies": {

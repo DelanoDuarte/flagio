@@ -25,3 +25,17 @@ export const environmentKeyGeneratorById = (id) =>
   request.put(`/environments/${id}/key/generate`, {
     headers: { "Content-Type": "application/json" },
   });
+
+// Authentication Requests
+export const signin = ({ username, password }) =>
+  request.post("/auth/token", {
+    username,
+    password,
+  });
+
+// Users Requests
+export const register = ({ username, password }) =>
+  request.post("/user", {
+    username,
+    password,
+  });
