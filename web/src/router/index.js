@@ -11,6 +11,17 @@ const isAuthenticatedGuard = (to, from, next) => {
   }
 };
 
+const hasRoleGuard = (to, from, next) => {
+  const roles = useAuthStore().getRoles();
+  const requiredRoles = to.meta.roles;
+
+  if (!requiredRoles || requiredRoles.some((role) => roles.includes(role))) {
+    next();
+  } else {
+    next("/unauthorized"); // Redirect to unauthorized page or handle accordingly
+  }
+};
+
 const routes = [
   {
     path: "/login",
@@ -73,8 +84,11 @@ const routes = [
   },
   {
     path: "/administration",
-    beforeEnter: [isAuthenticatedGuard],
+    beforeEnter: [isAuthenticatedGuard, hasRoleGuard],
     component: () => import("@/layouts/default/Default.vue"),
+    meta: {
+      roles: ["admin"],
+    },
     children: [
       {
         path: "",

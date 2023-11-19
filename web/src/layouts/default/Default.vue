@@ -35,10 +35,13 @@
 
         <v-list density="compact" nav class="mt-16">
           <v-list-item prepend-icon="mdi-home" to="/" title="Home" value="myfiles"></v-list-item>
-          <v-list-item prepend-icon="mdi-security" to="/administration" title="Administration"
-            value="dministration"></v-list-item>
+
+          <div v-role="'admin'">
+            <v-list-item prepend-icon="mdi-security" to="/administration" title="Administration"
+              value="dministration"></v-list-item>
+          </div>
           <v-list-item prepend-icon="mdi-flag" to="/flags" title="Flags" value="flags"></v-list-item>
-          <v-list-item prepend-icon="mdi-folder" to="/environments" title="Environments" value="starred"></v-list-item>
+          <v-list-item prepend-icon="mdi-laptop" to="/environments" title="Environments" value="starred"></v-list-item>
         </v-list>
       </v-navigation-drawer>
 

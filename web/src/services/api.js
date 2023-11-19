@@ -34,6 +34,7 @@ export const signin = ({ username, password }) =>
   });
 
 // Users Requests
+export const fetchAllUsers = () => request.get("/users");
 export const register = ({ username, password }) =>
   request.post("/user", {
     username,

@@ -41,7 +41,7 @@ def register():
     return (jsonify(ret), 201)
 
 
-@users.route('/', methods=["GET"])
+@users.route('', methods=["GET"])
 @flask_praetorian.auth_required
 def get_all():
     users = User.query.all()
@@ -49,7 +49,7 @@ def get_all():
 
 @users.route('/<id>', methods=["GET","PUT"])
 @flask_praetorian.auth_required
-@flask_praetorian.roles_required(['admin'])
+#@flask_praetorian.roles_required(['admin'])
 def update(id: str):
     user: User = User.query.get(id)
 

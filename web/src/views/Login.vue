@@ -60,7 +60,7 @@ const authenticate = () => {
     signin({ ...login.value })
         .then((res) => {
             // Get access token
-            useAuthStore().signin(res.access_token)
+            useAuthStore().signin(res)
             router.push({ path: "/" })
             toast.success('Successful Login')
         })

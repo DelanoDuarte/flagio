@@ -9,5 +9,8 @@ def authenticate():
     username = req.get("username", None)
     password = req.get("password", None)
     user = guard.authenticate(username, password)
-    ret = {"access_token": guard.encode_jwt_token(user)}
+    ret = {
+        "access_token": guard.encode_jwt_token(user),
+        "roles": user.roles
+    }
     return (jsonify(ret), 200)
