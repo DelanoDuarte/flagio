@@ -18,7 +18,7 @@ def index_api():
     return jsonify({"data":"Api Running"})
 
 app.register_blueprint(blueprint, url_prefix="/api/flags")
-app.register_blueprint(environments, url_prefix="/api/environments/")
+app.register_blueprint(environments, url_prefix="/api/environments")
 app.register_blueprint(authentication, url_prefix="/api/auth")
 app.register_blueprint(users, url_prefix="/api/users")
 
