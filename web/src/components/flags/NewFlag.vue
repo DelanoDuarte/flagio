@@ -10,8 +10,7 @@
                     <v-container>
                         <v-row>
                             <v-col cols="12">
-                                <v-text-field v-model="flag.name" ref="flagName" label="Name *" required
-                                    :rules="[() => !!flagName || 'This field is required']">
+                                <v-text-field v-model="flag.name" ref="flagName" label="Name *" required :rules="rules">
                                 </v-text-field>
                             </v-col>
                         </v-row>
@@ -27,12 +26,8 @@
                                 <v-switch label="Expiration" color="green" inset v-model="flagWithExpiration"></v-switch>
                             </v-col>
                             <v-col cols="8">
-                                <v-text-field 
-                                    v-model="flag.expiration_date" 
-                                    label="Expiration Date" 
-                                    type="date"
-                                    :disabled="!flagWithExpiration" 
-                                    format="YYYY-MM-DD">
+                                <v-text-field v-model="flag.expiration_date" label="Expiration Date" type="date"
+                                    :disabled="!flagWithExpiration" format="YYYY-MM-DD">
                                 </v-text-field>
                             </v-col>
                         </v-row>
@@ -64,6 +59,7 @@ import { useToast } from "vue-toastification";
 
 import EnvironmentsChipsSelect from "@/components/environments/EnvironmentsChipsSelect.vue";
 import { createFlag, fetchAllEnvironments } from "@/services/api";
+import { nameRules } from "@/utils/rules";
 
 const emit = defineEmits(["onNewFlag"]);
 
@@ -79,6 +75,7 @@ const flag = ref({
     environments: [],
 });
 const environments = ref([]);
+const rules = ref(nameRules)
 
 function newFlag() {
     createFlag(flag.value)
@@ -88,7 +85,7 @@ function newFlag() {
             toast.success(`New flag ${flag.value.name} created`);
         })
         .catch((err) => {
-            console.log(err);
+            console.error(err);
         });
 }
 

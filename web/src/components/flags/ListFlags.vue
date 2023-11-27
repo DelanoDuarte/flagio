@@ -120,7 +120,7 @@ const activate = (id) => {
       toast.success(`Flag ${flag.name} Activated`);
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     })
     .finally(() => {
       emit("onFlagChanged");

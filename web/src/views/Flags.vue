@@ -1,20 +1,22 @@
 <template>
-    <div class="text-h5 text-grey-darken-3">
-        All Feature Flags
-    </div>
+    <div>
+        <div class="text-h5 text-grey-darken-3">
+            All Feature Flags
+        </div>
 
-    <br />
-    <Transition name="fade" mode="out-in">
-        <v-skeleton-loader boilerplate type="card">
-            <v-card elevated title="Flags">
-                <v-card-text class="text-right">
-                    <NewFlag :key="newFlagComponent" @onNewFlag="onNewFlag" />
-                </v-card-text>
-                <ListFlags :flags="flags" @onFlagRemoval="onDeleteFlag($event)" @onFlagChanged="fetchFlags" />
-                <DeleteFlagDialog ref="deleteDialog" @onConfirmDelete="confirmDelete($event)" />
-            </v-card>
-        </v-skeleton-loader>
-    </Transition>
+        <br />
+        <Transition name="fade" mode="out-in">
+            <v-skeleton-loader boilerplate type="card">
+                <v-card elevated title="Flags">
+                    <v-card-text class="text-right">
+                        <NewFlag :key="newFlagComponent" @onNewFlag="onNewFlag" />
+                    </v-card-text>
+                    <ListFlags :flags="flags" @onFlagRemoval="onDeleteFlag($event)" @onFlagChanged="fetchFlags" />
+                    <DeleteFlagDialog ref="deleteDialog" @onConfirmDelete="confirmDelete($event)" />
+                </v-card>
+            </v-skeleton-loader>
+        </Transition>
+    </div>
 </template>
   
 <script setup>

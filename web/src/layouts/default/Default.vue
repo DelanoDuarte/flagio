@@ -6,6 +6,14 @@
 
       <!-- User information -->
       <v-spacer></v-spacer>
+      <div offset-y class="py-4">
+        <v-switch v-model="darkMode" hide-details inset color="green" @update:model-value="() => toggleDarkMode()">
+          <template v-slot:prepend>
+            <v-icon icon="mdi mdi-theme-light-dark" size="large" color="white"/>
+          </template>
+        </v-switch>
+      </div>
+
       <v-menu offset-y>
         <template v-slot:activator="{ props, on }">
           <v-btn v-bind="props" text v-slot:prepend>
@@ -55,13 +63,14 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import DefaultBar from "./AppBar.vue";
 import DefaultView from "./View.vue";
 
 import { useAuthStore } from '@/store/auth'
+import { useTheme } from "vuetify";
 
 const authStore = useAuthStore()
 const router = useRouter()
+const theme = useTheme()
 
 const drawer = ref(false);
 const user_options = ref([
@@ -69,11 +78,16 @@ const user_options = ref([
   { text: 'Sign In', icon: 'mdi-login', "onClick": () => { } },
   { text: 'Sign out', icon: 'mdi-logout', "onClick": () => signout() }
 ])
+const darkMode = ref(false)
 
 const signout = () => {
   console.log("Logout action")
   authStore.signout()
   router.push("/")
+}
+
+const toggleDarkMode = () => {
+  theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
 }
 
 </script>

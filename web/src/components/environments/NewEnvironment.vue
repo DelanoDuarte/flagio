@@ -69,7 +69,7 @@ const newEnv = () => {
             emit("onNewEnvironment");
         })
         .catch((err) => {
-            console.log(err);
+            console.error(err);
         });
 };
 </script>

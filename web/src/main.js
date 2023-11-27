@@ -25,8 +25,6 @@ app.use(createPinia());
 app.directive("role", (el, binding, vnode) => {
   const roles = localStorage.getItem("roles").split(",");
   const requiredRole = binding.value;
-
-  console.log("Role Required", requiredRole);
   if (!roles.includes(requiredRole)) {
     el.style.display = "none";
   }
