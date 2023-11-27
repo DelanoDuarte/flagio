@@ -11,11 +11,12 @@ def index():
 
     if request.method == 'POST':
         payload = request.get_json()
-        environments = payload['environments']
+        environments = payload.get('environments', None)
+        expiration_date = payload.get('expiration_date', None)
         
         flag = manager.create(Flag(payload['name'], 
                                    payload['description'], 
-                                   to_date(payload['expiration_date'])
+                                   to_date(expiration_date)
                                 ), 
                               environments
                             )
