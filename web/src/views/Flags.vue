@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="text-h5 text-grey-darken-3">
+        <div class="text-h5">
             All Feature Flags
         </div>
 

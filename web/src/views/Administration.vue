@@ -1,7 +1,6 @@
 <template>
-    <div>
-        <h1>Administration</h1>
-
+    <div class="content">
+        <div class="text-h5">Administration</div>
         <v-card elevated title="Users">
             <ListUsers :users="users" />
         </v-card>

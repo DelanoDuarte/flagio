@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="text-h5 text-grey-darken-3">All Environments</div>
+        <div class="text-h5">All Environments</div>
         <br />
 
         <v-row no-gutters>

@@ -9,7 +9,7 @@
       <div offset-y class="py-4">
         <v-switch v-model="darkMode" hide-details inset color="green" @update:model-value="() => toggleDarkMode()">
           <template v-slot:prepend>
-            <v-icon icon="mdi mdi-theme-light-dark" size="large" color="white"/>
+            <v-icon icon="mdi mdi-theme-light-dark" size="large" color="white" />
           </template>
         </v-switch>
       </div>
@@ -87,7 +87,7 @@ const signout = () => {
 }
 
 const toggleDarkMode = () => {
-  theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
+  theme.global.name.value = theme.global.current.value.dark ? 'defaultTheme' : 'darkTheme'
 }
 
 </script>
