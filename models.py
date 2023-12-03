@@ -16,6 +16,10 @@ class User(db.Model):
     hash_password: Mapped[str] = mapped_column(String, nullable=False, name="password")
     roles: Mapped[str] = mapped_column(String, nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    
+    firstname: Mapped[str] = mapped_column(String, nullable=True)
+    lastname: Mapped[str] = mapped_column(String, nullable=True)
+    email: Mapped[str] = mapped_column(String, unique=True, name="email", nullable=True)
 
     @property
     def rolenames(self):
@@ -74,12 +78,20 @@ class User(db.Model):
         """
         return cls.query.filter_by(username=username).one_or_none()
 
+    @property
+    def full_name(self):
+        return f'{self.firstname} {self.lastname}'
+    
     def toJson(self):
         return {
             "id": self.id,
             "username": self.username,
             "roles": self.rolenames,
-            "active": self.is_active
+            "active": self.is_active,
+            "name": self.full_name,
+            "firstname": self.firstname,
+            "lastname": self.lastname,
+            "email": self.email
         }
 
 class Flag(db.Model):

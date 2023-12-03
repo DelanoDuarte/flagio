@@ -19,7 +19,14 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   ({ data }) => data,
-  ({ message, response }) => Promise.reject(response ? response.data : message)
+  ({ message, response }) => {
+    if (response.status === 401) {
+      window.localStorage.clear();
+      window.location = "/login";
+      console.log("Interceptor Login");
+      return Promise.reject(error);
+    }
+    Promise.reject(response ? response.data : message);
+  }
 );
-
 export default instance;

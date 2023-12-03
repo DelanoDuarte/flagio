@@ -49,8 +49,8 @@ def get_all():
 
 @users.route('/<id>', methods=["GET","PUT"])
 @flask_praetorian.auth_required
-#@flask_praetorian.roles_required(['admin'])
-def update(id: str):
+@flask_praetorian.roles_required('admin')
+def manage(id: str):
     user: User = User.query.get(id)
 
     if request.method == "GET":
@@ -58,8 +58,13 @@ def update(id: str):
     
     req = request.get_json()
 
+    roles: list = req.get('roles', user.roles)
+    
     user.username = req.get('username', user.username)
-    user.roles = req.get('roles', user.roles)
+    user.firstname = req.get('firstname', user.firstname)
+    user.lastname = req.get('lastname', user.lastname)
+    user.email = req.get('email', user.email)
+    user.roles = req.get(','.join(roles), user.roles)
     user.is_active = req.get('active', user.is_active)
 
     db.session.commit()

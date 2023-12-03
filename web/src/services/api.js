@@ -40,3 +40,6 @@ export const register = ({ username, password }) =>
     username,
     password,
   });
+export const getUserById = (id) => request.get(`/users/${id}`);
+export const updateUser = (id, user) =>
+  request.put(`/users/${id}`, { ...user });

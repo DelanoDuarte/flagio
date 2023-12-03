@@ -4,7 +4,7 @@
             <thead>
                 <tr>
                     <th id="name" class="text-left">Name</th>
-                    <th id="active" class="text-left">Active</th>
+                    <th id="roles" class="text-left">Roles</th>
                     <th id="actions" class="text-left">
                         <v-icon>mdi-archive-edit-outline</v-icon>
                     </th>
@@ -15,14 +15,18 @@
                     id,
                     username,
                     active,
-                } in props.users" :key="id" v-memo="[active]">
-                    <td>{{ username }}</td>
-                    <td class="text-left">
-                        <div>
-                            <v-switch label="Active" color="green" :model-value="active" inset
-                                @update:model-value="(newValue) => onStatusChange(id, newValue)">
-                            </v-switch>
-                        </div>
+                    roles,
+                } in  props.users " :key="id" v-memo="[active]">
+                    <td>
+                        <router-link :to="{ name: 'UserInformation', params: { id: id } }">
+                            {{ username }}
+                        </router-link>
+                    </td>
+                    <td>
+                        <v-chip v-for="role  in  roles" v-bind:key="role" class="ma-2 text-uppercase" color="green" label>
+                            <v-icon start icon="mdi-account-circle-outline"></v-icon>
+                            {{ role }}
+                        </v-chip>
                     </td>
                     <td>
                         <v-menu location="end" transition="scale-transition">
@@ -57,8 +61,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
 const props = defineProps(['users'])
 const onStatusChange = (user_id, value) => {
     console.log(`User switch ${user_id}`, value)

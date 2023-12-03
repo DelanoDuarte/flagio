@@ -96,6 +96,12 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "home" */ "@/views/Administration.vue"),
       },
+      {
+        path: "users/:id",
+        name: "UserInformation",
+        component: () =>
+          import(/* webpackChunkName: "home" */ "@/views/UserInformation.vue"),
+      },
     ],
   },
 ];
