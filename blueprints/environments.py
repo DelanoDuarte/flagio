@@ -17,6 +17,22 @@ def index():
 
         return jsonify(environment.toJson())
 
+    args = request.args
+    page = args.get('page', None)
+    size = args.get('size', None)
+    
+    if page and size:
+        result = db.paginate(db.select(Environment), page=int(page), per_page=int(size))
+        envs = [item.toJson() for item in result.items]
+        return jsonify({
+            'items': envs,
+            'total_pages': result.pages,
+            'current_page': result.page,
+            'total_items': result.total,
+            'next_page': result.next_num,
+            'previous_page': result.prev_num
+        })
+        
     envs = Environment.query.all()
     return jsonify([item.toJson() for item in envs])
 
